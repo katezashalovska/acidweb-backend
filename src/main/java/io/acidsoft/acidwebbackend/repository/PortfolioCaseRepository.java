@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface PortfolioCaseRepository extends JpaRepository<PortfolioCase, Long> {
     Optional<PortfolioCase> findBySlug(String slug);
     List<PortfolioCase> findByIsFeaturedTrueOrderByCreatedAtDesc();
+    List<PortfolioCase> findAllByOrderByCreatedAtDesc();
 }

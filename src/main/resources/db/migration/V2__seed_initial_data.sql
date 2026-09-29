@@ -95,96 +95,87 @@ VALUES
 INSERT INTO portfolio_cases (slug, title, category, metric, description, tech_stack, app_store_url, google_play_url, is_featured)
 VALUES
 (
-    'smooth-trailering',
-    'Smooth Trailering',
-    'IoT / Automotive',
-    '4.9★ Store Rating • 50k+ Users',
-    'Smart sensor telemetry app for real-time trailer towing safety, weight distribution monitoring, and tire pressure diagnostics.',
-    'Flutter, Bluetooth LE Native Modules, AWS IoT Core, WebSockets',
-    'https://apps.apple.com/',
-    'https://play.google.com/',
-    true
-),
-(
     'soulx',
     'SoulX',
-    'Wellness & Audio',
-    '100k+ Downloads • 4.8★ App Store',
-    'Immersive spatial audio & meditation app featuring spatial soundscapes, offline sync, and personalized daily recommendations.',
-    'Native Swift / AVFoundation, Kotlin Native, Firebase, WebGL',
-    'https://apps.apple.com/',
-    'https://play.google.com/',
+    'Lifestyle & Wellness',
+    'iOS & Android • Flutter, Firebase • Australia',
+    'A mood-based content app in eight languages, including right-to-left layout, custom UX/UI, and cloud messaging.',
+    'Flutter, Firebase, RTL & Multilingual, UX/UI',
+    'https://apps.apple.com/de/app/soulx/id6753581623',
+    NULL,
     true
 ),
 (
-    'bitebudget',
-    'BiteBudget',
-    'FinTech / Consumer',
-    '35% Reduction in Grocery Waste',
-    'Smart grocery budget tracker with OCR receipt scanning, meal planning, and automated spending analytics.',
-    'Flutter, Google Cloud Vision OCR, PostgreSQL, Node.js Backend',
-    'https://apps.apple.com/',
-    'https://play.google.com/',
+    'gymsplat',
+    'GymSplat',
+    'Fitness & Workouts',
+    'iOS & Android • React Native, Rive, Firebase • USA',
+    'Fitness platform designed to help users plan workouts, follow training programs, and stay consistent with an integrated AI Coach.',
+    'React Native, Rive, Firebase, AI Coach',
+    NULL,
+    NULL,
+    true
+),
+(
+    'the-great-project',
+    'The Great Project',
+    'Fitness & Health',
+    'iOS & Android • Flutter, Java, Firebase • UK',
+    'An AI Fitness Coach app combining goal-oriented workouts, personalized nutrition, and conversational AI coaching.',
+    'Flutter, Java, Firebase, AI Coach',
+    NULL,
+    NULL,
     true
 ),
 (
     'chumly',
     'Chumly',
-    'Social / Micro-Events',
-    '20k+ Monthly Active Creators',
-    'Hyper-local social discovery app connecting people for real-time micro-events, meetups, and local community activities.',
-    'React Native, Mapbox GL, Firebase Realtime DB, Node.js',
-    'https://apps.apple.com/',
-    'https://play.google.com/',
+    'Social & Geolocation',
+    'iOS & Android • Flutter, Firebase • USA',
+    'Meeting people nearby, now rather than next week. Built with Flutter, Firebase, and real-time instant messaging.',
+    'Flutter, Firebase, Geolocation, Real-time Chat',
+    'https://apps.apple.com/ua/app/chumly/id6755146348',
+    NULL,
     true
 ),
 (
-    'bonnie-app',
-    'The Bonnie App',
-    'Health & Pet Care',
-    '15k Active Pet Owners',
-    'Comprehensive pet health records, vet appointment booking, and medication reminder system.',
-    'Flutter, Firebase, Stripe API, Push Notifications',
-    'https://apps.apple.com/',
-    'https://play.google.com/',
+    'taskbloom',
+    'TaskBloom',
+    'Productivity',
+    'Android & iOS • Kotlin, Firebase • Germany',
+    'TaskBloom simplifies task management with soft, pleasant design, custom micro-animations, and offline-first productivity tools.',
+    'Kotlin, Firebase, Productivity, UX/UI',
+    NULL,
+    NULL,
     true
-),
-(
-    'taxi-go-now',
-    'Taxi Go Now',
-    'Logistics & Mobility',
-    '99.9% Uptime • 1M+ Completed Rides',
-    'High-concurrency ride hailing and driver dispatch platform with live GPS tracking and dynamic surge pricing.',
-    'Native Android/iOS, WebSockets, Redis, Microservices Backend',
-    'https://apps.apple.com/',
-    'https://play.google.com/',
-    true
-);
+)
+ON CONFLICT (slug) DO NOTHING;
 
 -- Seed Testimonials
 INSERT INTO testimonials (author_name, role, company, quote, metric, order_index)
 VALUES
 (
-    'Alex Vance',
-    'CTO',
-    'Smooth Trailering',
-    'AcidSoft delivered our iOS and Android IoT app ahead of schedule with zero Bluetooth connectivity glitches. Their post-launch support keeps our app top-rated.',
-    '4.9★ App Rating',
+    'Peter Frank',
+    'iOS App Founder',
+    'iOS Analytics & Scaling',
+    'Working with Kate and Michael was really great. Very friendly, capable, and responsive. I really enjoyed working with them and I''d highly recommend them if you need any help. I worked with Michael closely on setting up the Facebook SDK and CAPI properly to help ensure the data flow to my ad campaigns is clean and optimizable to scale my iOS mobile app.',
+    '5★ Rating',
     1
 ),
 (
-    'Elena Rostova',
-    'Founder & Head of Product',
-    'SoulX Wellness',
-    'Working with AcidSoft felt like extending our internal core team. They handled our spatial audio pipeline and store compliance seamlessly.',
-    '100k+ Downloads',
+    'Toghrul Aghayev',
+    'Product Owner',
+    'WebRTC App',
+    'We worked with AcidSoft on implementing full voice and video call functionality in our mobile application using WebRTC. Their team handled the full development process of 1-1 audio and video calls. Despite technical complexity, they delivered a stable, functional solution within a short timeframe. Calls work reliably in production, and communication was proactive.',
+    '5★ Rating',
     2
 ),
 (
-    'David Miller',
-    'VP of Product',
-    'BiteBudget',
-    'The team audited our inherited codebase, cleaned up technical debt, and implemented automated CI/CD releases in less than 3 weeks.',
-    '3-Week Turnaround',
+    'Sid J',
+    'Founder',
+    'HungerLink Foundation',
+    'We had some important fixes to be made to our app and it had to be done quickly. Kate Zashalovska and Max worked over the weekend to ensure that the fixes were implemented and tested. They not only stayed up late to ensure all the work had been done, they also ensured proper testing. I really appreciate their professionalism and commitment. Totally recommended!',
+    '5★ Rating',
     3
 );
+
