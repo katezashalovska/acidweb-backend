@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "portfolio_cases")
@@ -44,6 +45,24 @@ public class PortfolioCase {
     @Column(name = "is_featured")
     private Boolean isFeatured;
 
+    @Column(name = "image_id")
+    private UUID imageId;
+
+    @Column(name = "image_alt", length = 255)
+    private String imageAlt;
+
+    @Column(columnDefinition = "TEXT")
+    private String problem;
+
+    @Column(name = "what_we_built", columnDefinition = "TEXT")
+    private String whatWeBuilt;
+
+    @Column(name = "hard_part", columnDefinition = "TEXT")
+    private String hardPart;
+
+    @Column(name = "behance_url", length = 500)
+    private String behanceUrl;
+
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
@@ -51,7 +70,7 @@ public class PortfolioCase {
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
         if (this.isFeatured == null) {
-            this.isFeatured = true;
+            this.isFeatured = false;
         }
     }
 }

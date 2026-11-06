@@ -22,8 +22,8 @@ public class PortfolioController {
 
     // Public endpoints
     @GetMapping("/portfolio")
-    public ResponseEntity<ApiResponse<List<PortfolioCase>>> getFeaturedCases() {
-        List<PortfolioCase> cases = portfolioService.getFeaturedCases();
+    public ResponseEntity<ApiResponse<List<PortfolioCase>>> getPublicCases() {
+        List<PortfolioCase> cases = portfolioService.getPublicCases();
         return ResponseEntity.ok(ApiResponse.success(cases));
     }
 

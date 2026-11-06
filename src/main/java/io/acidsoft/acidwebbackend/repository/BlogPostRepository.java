@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
     Optional<BlogPost> findBySlug(String slug);
+    Optional<BlogPost> findBySlugAndIsPublishedTrue(String slug);
     List<BlogPost> findByIsPublishedTrueOrderByCreatedAtDesc();
     Boolean existsBySlug(String slug);
 }

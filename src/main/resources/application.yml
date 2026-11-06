@@ -27,6 +27,11 @@ spring:
     baseline-on-migrate: true
     locations: classpath:db/migration
 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
 acidsoft:
   jwt:
     secret: ${ACIDSOFT_JWT_SECRET:9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b}

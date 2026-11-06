@@ -6,10 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface PortfolioCaseRepository extends JpaRepository<PortfolioCase, Long> {
     Optional<PortfolioCase> findBySlug(String slug);
-    List<PortfolioCase> findByIsFeaturedTrueOrderByCreatedAtDesc();
     List<PortfolioCase> findAllByOrderByCreatedAtDesc();
+    boolean existsByImageId(UUID imageId);
 }

@@ -9,16 +9,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class PortfolioService {
 
     private final PortfolioCaseRepository portfolioCaseRepository;
+    private final MediaFileService mediaFileService;
 
     @Transactional(readOnly = true)
-    public List<PortfolioCase> getFeaturedCases() {
-        return portfolioCaseRepository.findByIsFeaturedTrueOrderByCreatedAtDesc();
+    public List<PortfolioCase> getPublicCases() {
+        return portfolioCaseRepository.findAllByOrderByCreatedAtDesc();
     }
 
     @Transactional(readOnly = true)
@@ -34,6 +37,7 @@ public class PortfolioService {
 
     @Transactional
     public PortfolioCase createCase(PortfolioCaseRequest request) {
+        mediaFileService.requireMediaFile(request.getImageId());
         PortfolioCase portfolioCase = PortfolioCase.builder()
                 .slug(request.getSlug())
                 .title(request.getTitle())
@@ -43,7 +47,13 @@ public class PortfolioService {
                 .techStack(request.getTechStack())
                 .appStoreUrl(request.getAppStoreUrl())
                 .googlePlayUrl(request.getGooglePlayUrl())
-                .isFeatured(request.getIsFeatured() != null ? request.getIsFeatured() : true)
+                .isFeatured(request.getIsFeatured() != null ? request.getIsFeatured() : false)
+                .imageId(request.getImageId())
+                .imageAlt(request.getImageAlt())
+                .problem(request.getProblem())
+                .whatWeBuilt(request.getWhatWeBuilt())
+                .hardPart(request.getHardPart())
+                .behanceUrl(request.getBehanceUrl())
                 .build();
         return portfolioCaseRepository.save(portfolioCase);
     }
@@ -53,6 +63,9 @@ public class PortfolioService {
         PortfolioCase portfolioCase = portfolioCaseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("PortfolioCase", "id", id));
 
+        UUID previousImageId = portfolioCase.getImageId();
+        mediaFileService.requireMediaFile(request.getImageId());
+
         portfolioCase.setSlug(request.getSlug());
         portfolioCase.setTitle(request.getTitle());
         portfolioCase.setCategory(request.getCategory());
@@ -61,11 +74,21 @@ public class PortfolioService {
         portfolioCase.setTechStack(request.getTechStack());
         portfolioCase.setAppStoreUrl(request.getAppStoreUrl());
         portfolioCase.setGooglePlayUrl(request.getGooglePlayUrl());
+        portfolioCase.setImageId(request.getImageId());
+        portfolioCase.setImageAlt(request.getImageAlt());
+        portfolioCase.setProblem(request.getProblem());
+        portfolioCase.setWhatWeBuilt(request.getWhatWeBuilt());
+        portfolioCase.setHardPart(request.getHardPart());
+        portfolioCase.setBehanceUrl(request.getBehanceUrl());
         if (request.getIsFeatured() != null) {
             portfolioCase.setIsFeatured(request.getIsFeatured());
         }
 
-        return portfolioCaseRepository.save(portfolioCase);
+        PortfolioCase saved = portfolioCaseRepository.save(portfolioCase);
+        if (!Objects.equals(previousImageId, saved.getImageId())) {
+            mediaFileService.deleteIfUnused(previousImageId);
+        }
+        return saved;
     }
 
     @Transactional
@@ -75,9 +98,11 @@ public class PortfolioService {
 
     @Transactional
     public void deleteCase(Long id) {
-        if (!portfolioCaseRepository.existsById(id)) {
-            throw new ResourceNotFoundException("PortfolioCase", "id", id);
-        }
-        portfolioCaseRepository.deleteById(id);
+        PortfolioCase portfolioCase = portfolioCaseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("PortfolioCase", "id", id));
+        UUID imageId = portfolioCase.getImageId();
+        portfolioCaseRepository.delete(portfolioCase);
+        portfolioCaseRepository.flush();
+        mediaFileService.deleteIfUnused(imageId);
     }
 }

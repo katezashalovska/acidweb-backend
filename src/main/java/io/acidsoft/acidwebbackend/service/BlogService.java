@@ -23,7 +23,7 @@ public class BlogService {
 
     @Transactional(readOnly = true)
     public BlogPost getPostBySlug(String slug) {
-        return blogPostRepository.findBySlug(slug)
+        return blogPostRepository.findBySlugAndIsPublishedTrue(slug)
                 .orElseThrow(() -> new ResourceNotFoundException("BlogPost", "slug", slug));
     }
 

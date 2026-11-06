@@ -3,6 +3,8 @@ package io.acidsoft.acidwebbackend.dto.request;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class PortfolioCaseRequest {
     @NotBlank(message = "Slug is required")
@@ -26,5 +28,17 @@ public class PortfolioCaseRequest {
 
     private String googlePlayUrl;
 
-    private Boolean isFeatured = true;
+    private Boolean isFeatured = false;
+
+    private UUID imageId;
+
+    private String imageAlt;
+
+    private String problem;
+
+    private String whatWeBuilt;
+
+    private String hardPart;
+
+    private String behanceUrl;
 }
